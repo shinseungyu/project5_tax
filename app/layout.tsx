@@ -27,6 +27,9 @@ export const metadata: Metadata = {
   icons: {
     icon: '/favicon.ico', // 기본 아이콘 경로
   },
+  other: {
+    "google-adsense-account": "ca-pub-5378247298190063"
+  }
 }
 
 export default function RootLayout({
@@ -52,6 +55,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <meta name="naver-site-verification" content="89526f8a6ecae4298dcb29200f67dbc70c6c1b48" />
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5378247298190063" crossOrigin="anonymous"></script>
       </head>
       <body className={geist.variable}>
         {children}
