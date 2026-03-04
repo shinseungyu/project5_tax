@@ -18,11 +18,20 @@ export const metadata: Metadata = {
     siteName: '관세계산기 - 수입 관세 자동 계산',
     locale: 'ko_KR',
     type: 'website',
+    images: [
+      {
+        url: 'https://newsioo.com/thumb.webp',
+        width: 1200,
+        height: 630,
+        alt: '관세계산기 썸네일',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: '관세계산기 - 수입 관세 자동 계산',
     description: '해외 직구 시 예상 관세와 부가세를 간편하게 계산하세요',
+    images: ['https://newsioo.com/thumb.webp'],
   },
   authors: [{ name: '관세계산기 - 수입 관세 자동 계산' }],
   publisher: '관세계산기 - 수입 관세 자동 계산',
