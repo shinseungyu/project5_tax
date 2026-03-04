@@ -24,6 +24,17 @@ export const metadata: Metadata = {
     title: '관세계산기 - 수입 관세 자동 계산',
     description: '해외 직구 시 예상 관세와 부가세를 간편하게 계산하세요',
   },
+  authors: [{ name: '관세계산기 - 수입 관세 자동 계산' }],
+  publisher: '관세계산기 - 수입 관세 자동 계산',
+  formatDetection: {
+    telephone: false,
+    date: false,
+    address: false,
+    email: false,
+  },
+  verification: {
+    google: '여기에_구글_인증코드_입력',
+  },
   icons: {
     icon: '/favicon.ico', // 기본 아이콘 경로
   },

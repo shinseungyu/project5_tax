@@ -176,6 +176,18 @@ export default function Page() {
             </p>
           )}
 
+          <div style={{
+            fontSize: 13,
+            color: "var(--text-primary)",
+            marginBottom: 20,
+            backgroundColor: "var(--bg-secondary)",
+            padding: "10px 14px",
+            borderRadius: 8,
+            borderLeft: "3px solid var(--primary)"
+          }}>
+            💡 <strong>주의:</strong> 통관 기준에 맞춰 모든 금액은 반드시 <strong>달러(USD)</strong> 환산 금액으로 기재해 주세요.
+          </div>
+
           <div className={styles.row}>
             <div className={styles.formGroup}>
               <label className={styles.label} htmlFor="price">
@@ -209,11 +221,11 @@ export default function Page() {
             </div>
           </div>
 
-          {/* Vitamin bottle count */}
+          {/* Vitamin / Medicine bottle count */}
           {category === "vitamins" && (
             <div className={styles.formGroup}>
               <label className={styles.label} htmlFor="bottles">
-                병 수
+                {origin === "jp" ? "의약품/서플리먼트 수량" : origin === "us" ? "건강보조제 병 수" : "수량"}
               </label>
               <input
                 id="bottles"
@@ -227,12 +239,43 @@ export default function Page() {
             </div>
           )}
 
-          {showVitaminWarning && (
+          {/* Warnings by Country and Category */}
+          {showVitaminWarning && origin === "us" && (
             <div className={styles.warning}>
               <AlertTriangle size={16} className={styles.warningIcon} />
               <p className={styles.warningText}>
-                비타민/건강보조제는 <strong>6병</strong>까지 개인 통관이 가능합니다.
-                6병 초과 시 통관이 보류되거나 추가 서류가 필요할 수 있습��다.
+                미국발 비타민/건강보조제는 <strong>6병</strong>까지 개인 통관이 가능하며 별도 요건확인이 면제됩니다.<br />
+                초과 시 의사 소견서 등 추가 서류가 필요하거나 폐기될 수 있습니다.
+              </p>
+            </div>
+          )}
+
+          {showVitaminWarning && origin === "jp" && (
+            <div className={styles.warning}>
+              <AlertTriangle size={16} className={styles.warningIcon} />
+              <p className={styles.warningText}>
+                일본발 일반의약품(위장약, 파스 등) 및 서플리먼트는 자가사용 기준 <strong>6병(개)</strong>까지 통관됩니다.<br />
+                수량 초과 시 통관 보류 및 분할/폐기수수료가 발생할 수 있습니다.
+              </p>
+            </div>
+          )}
+          
+          {showVitaminWarning && origin === "cn" && (
+            <div className={styles.warning}>
+              <AlertTriangle size={16} className={styles.warningIcon} />
+              <p className={styles.warningText}>
+                중국발 건강식품 및 의약품류 또한 자가사용 인정 기준인 <strong>6병(개)</strong>을 초과할 경우<br />
+                통관이 지연되거나 요건확인 대상이 되어 폐기될 수 있습니다.
+              </p>
+            </div>
+          )}
+
+          {origin === "cn" && category === "electronics" && (
+            <div className={styles.warning}>
+              <AlertTriangle size={16} className={styles.warningIcon} />
+              <p className={styles.warningText}>
+                중국발 전자기기(스마트기기 등)는 전파법에 따라 1인당 <strong>모델별 1대</strong>만 적합성평가(인증)가 면제됩니다.<br />
+                2대 이상 구매 시 통관이 불가능할 수 있습니다.
               </p>
             </div>
           )}
