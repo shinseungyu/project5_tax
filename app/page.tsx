@@ -16,27 +16,35 @@ export default function Page() {
 
   const [origin, setOrigin] = useState<string>("us");
   const [category, setCategory] = useState<string>("clothing");
-  const [priceUSD, setPriceUSD] = useState<string>("");
-  const [shippingUSD, setShippingUSD] = useState<string>("");
+  const [priceLocal, setPriceLocal] = useState<string>("");
+  const [shippingLocal, setShippingLocal] = useState<string>("");
   const [bottleCount, setBottleCount] = useState<string>("");
 
   const selectedCategory = PRODUCT_CATEGORIES.find((c) => c.id === category);
   const selectedOrigin = ORIGIN_COUNTRIES.find((c) => c.id === origin);
 
   const result = useMemo(() => {
-    const price = parseFloat(priceUSD) || 0;
-    const shipping = parseFloat(shippingUSD) || 0;
-    const totalUSD = price + shipping;
+    const price = parseFloat(priceLocal) || 0;
+    const shipping = parseFloat(shippingLocal) || 0;
+    const totalLocal = price + shipping;
 
-    if (!rate || totalUSD <= 0) {
+    if (!rates || !rate || totalLocal <= 0) {
       return null;
     }
 
     const dutyFreeLimit = selectedOrigin?.dutyFreeLimit ?? 150;
 
+    let totalUSD = totalLocal;
+    if (selectedOrigin?.id === "jp") {
+      totalUSD = totalLocal / rates.JPY;
+    } else if (selectedOrigin?.id === "cn") {
+      totalUSD = totalLocal / rates.CNY;
+    }
+
     if (totalUSD <= dutyFreeLimit) {
       return {
         isDutyFree: true,
+        totalLocal,
         totalUSD,
         totalKRW: Math.round(totalUSD * rate),
         dutyFreeLimit,
@@ -60,6 +68,7 @@ export default function Page() {
 
     return {
       isDutyFree: false,
+      totalLocal,
       totalUSD,
       totalKRW,
       dutyRate,
@@ -69,7 +78,7 @@ export default function Page() {
       totalCost,
       dutyFreeLimit,
     };
-  }, [priceUSD, shippingUSD, rate, selectedCategory, selectedOrigin]);
+  }, [priceLocal, shippingLocal, rate, rates, selectedCategory, selectedOrigin]);
 
   const showVitaminWarning =
     category === "vitamins" &&
@@ -185,38 +194,38 @@ export default function Page() {
             borderRadius: 8,
             borderLeft: "3px solid var(--primary)"
           }}>
-            💡 <strong>주의:</strong> 통관 기준에 맞춰 모든 금액은 반드시 <strong>달러(USD)</strong> 환산 금액으로 기재해 주세요.
+            💡 <strong>안내:</strong> 선택하신 <strong>출발 국가의 현지 통화({selectedOrigin?.label} {selectedOrigin?.currency})</strong>로 입력하시면, 최신 환율을 반영하여 자동으로 달러(USD) 및 원화 세액이 계산됩니다.
           </div>
 
           <div className={styles.row}>
             <div className={styles.formGroup}>
               <label className={styles.label} htmlFor="price">
-                상품 가격 (USD)
+                상품 가격 ({selectedOrigin?.currency || "USD"})
               </label>
               <input
                 id="price"
                 type="number"
                 className={styles.input}
-                placeholder="0.00"
+                placeholder="0"
                 min="0"
-                step="0.01"
-                value={priceUSD}
-                onChange={(e) => setPriceUSD(e.target.value)}
+                step="any"
+                value={priceLocal}
+                onChange={(e) => setPriceLocal(e.target.value)}
               />
             </div>
             <div className={styles.formGroup}>
               <label className={styles.label} htmlFor="shipping">
-                배송비 (USD)
+                현지 배송비 ({selectedOrigin?.currency || "USD"})
               </label>
               <input
                 id="shipping"
                 type="number"
                 className={styles.input}
-                placeholder="0.00"
+                placeholder="0"
                 min="0"
-                step="0.01"
-                value={shippingUSD}
-                onChange={(e) => setShippingUSD(e.target.value)}
+                step="any"
+                value={shippingLocal}
+                onChange={(e) => setShippingLocal(e.target.value)}
               />
             </div>
           </div>
@@ -293,7 +302,13 @@ export default function Page() {
             </div>
             <div className={styles.resultBody}>
               <div className={styles.resultRow}>
-                <p className={styles.resultRowLabel}>상품+배송 (USD)</p>
+                <p className={styles.resultRowLabel}>상품+배송 ({selectedOrigin?.currency || "USD"})</p>
+                <p className={styles.resultRowValue}>
+                  {selectedOrigin?.symbol || "$"}{result.totalLocal.toLocaleString("ko-KR", { maximumFractionDigits: 2 })}
+                </p>
+              </div>
+              <div className={styles.resultRow}>
+                <p className={styles.resultRowLabel}>달러 환산액 (면세 기준)</p>
                 <p className={styles.resultRowValue}>
                   ${result.totalUSD.toFixed(2)}
                 </p>
@@ -339,8 +354,11 @@ export default function Page() {
             </div>
             <p className={styles.dutyFreeTitle}>면세 대상입니다</p>
             <p className={styles.dutyFreeDesc}>
-              총 ${result.totalUSD.toFixed(2)} (면세 한도 ${result.dutyFreeLimit} 이하)
-              {" "}— 약 {result.totalKRW?.toLocaleString("ko-KR")}원
+              총 {selectedOrigin?.symbol || "$"}{result.totalLocal.toLocaleString("ko-KR", { maximumFractionDigits: 2 })} (약 ${result.totalUSD.toFixed(2)})<br />
+              면세 한도 ${result.dutyFreeLimit} 이하로 관부가세가 부과되지 않습니다.<br />
+              <span style={{ fontSize: 13, marginTop: 4, display: "inline-block", color: "var(--text-primary)" }}>
+                예상 원화 결제액: 약 {result.totalKRW?.toLocaleString("ko-KR")}원
+              </span>
             </p>
           </div>
         )}

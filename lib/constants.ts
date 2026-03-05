@@ -27,7 +27,7 @@ export const VITAMIN_BOTTLE_LIMIT = 6;
 
 // 출발국가 옵션
 export const ORIGIN_COUNTRIES = [
-  { id: "us", label: "미국", dutyFreeLimit: DUTY_FREE_LIMIT_US },
-  { id: "jp", label: "일본", dutyFreeLimit: DUTY_FREE_LIMIT_OTHER },
-  { id: "cn", label: "중국", dutyFreeLimit: DUTY_FREE_LIMIT_OTHER },
+  { id: "us", label: "미국", currency: "USD", symbol: "$", dutyFreeLimit: DUTY_FREE_LIMIT_US },
+  { id: "jp", label: "일본", currency: "JPY", symbol: "¥", dutyFreeLimit: DUTY_FREE_LIMIT_OTHER },
+  { id: "cn", label: "중국", currency: "CNY", symbol: "¥", dutyFreeLimit: DUTY_FREE_LIMIT_OTHER },
 ] as const;
