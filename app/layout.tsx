@@ -46,7 +46,9 @@ export const metadata: Metadata = {
     google: '여기에_구글_인증코드_입력',
   },
   icons: {
-    icon: '/favicon.ico', // 기본 아이콘 경로
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/favicon.ico',
   },
   other: {
     "google-adsense-account": "ca-pub-5378247298190063"
