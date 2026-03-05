@@ -149,7 +149,11 @@ export default function Page() {
                 <label htmlFor={`origin-${country.id}`} className={styles.radioLabel}>
                   {country.label}
                   <span style={{ fontSize: 12, opacity: 0.7 }}>
-                    (${country.dutyFreeLimit} 이하 면세)
+                    ({country.id === "us" 
+                      ? `$${country.dutyFreeLimit}` 
+                      : rates 
+                        ? `약 ${(country.dutyFreeLimit * (country.id === "jp" ? rates.JPY : rates.CNY)).toLocaleString("ko-KR", { maximumFractionDigits: 0 })}${country.currency}`
+                        : `$${country.dutyFreeLimit}`} 이하 면세)
                   </span>
                 </label>
               </div>
@@ -355,7 +359,11 @@ export default function Page() {
             <p className={styles.dutyFreeTitle}>면세 대상입니다</p>
             <p className={styles.dutyFreeDesc}>
               총 {selectedOrigin?.symbol || "$"}{result.totalLocal.toLocaleString("ko-KR", { maximumFractionDigits: 2 })} (약 ${result.totalUSD.toFixed(2)})<br />
-              면세 한도 ${result.dutyFreeLimit} 이하로 관부가세가 부과되지 않습니다.<br />
+              면세 한도 {selectedOrigin?.id === "us" 
+                ? `$${result.dutyFreeLimit}` 
+                : rates 
+                  ? `약 ${(result.dutyFreeLimit * (selectedOrigin?.id === "jp" ? rates.JPY : rates.CNY)).toLocaleString("ko-KR", { maximumFractionDigits: 0 })}${selectedOrigin?.currency}`
+                  : `$${result.dutyFreeLimit}`} 이하로 관부가세가 부과되지 않습니다.<br />
               <span style={{ fontSize: 13, marginTop: 4, display: "inline-block", color: "var(--text-primary)" }}>
                 예상 원화 결제액: 약 {result.totalKRW?.toLocaleString("ko-KR")}원
               </span>
