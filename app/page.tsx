@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useMemo } from "react";
-import { Calculator, AlertTriangle, CircleCheck, RefreshCw, AlertCircle, HelpCircle } from "lucide-react";
+import { Calculator, AlertTriangle, CircleCheck, RefreshCw, AlertCircle, HelpCircle, PiggyBank } from "lucide-react";
 import { useExchangeRate } from "@/hooks/useExchangeRate";
 import {
   PRODUCT_CATEGORIES,
@@ -299,7 +299,7 @@ export default function Page() {
         </div>
 
         {/* Banner for Combined Tax Calculator */}
-        <div style={{ marginTop: "24px", marginBottom: "32px", background: "linear-gradient(to right, var(--bg-card), var(--bg-page))", borderRadius: "12px", padding: "24px", border: "1px solid var(--border-color)", borderLeft: "4px solid var(--primary)", boxShadow: "var(--shadow-md)" }}>
+        <div style={{ marginTop: "24px", marginBottom: "24px", background: "linear-gradient(to right, var(--bg-card), var(--bg-page))", borderRadius: "12px", padding: "24px", border: "1px solid var(--border-color)", borderLeft: "4px solid var(--primary)", boxShadow: "var(--shadow-md)" }}>
           <div style={{ display: "flex", gap: "16px", alignItems: "flex-start" }}>
             <div style={{ background: "var(--bg-secondary)", padding: "12px", borderRadius: "50%", color: "var(--primary)" }}>
               <Calculator size={24} />
@@ -324,6 +324,36 @@ export default function Page() {
               }}>
                 합산과세 실시간 계산기 바로가기
               </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Banner for Youth Future Savings Calculator */}
+        <div style={{ marginBottom: "32px", background: "linear-gradient(to right, #f0f7ff, #ffffff)", borderRadius: "12px", padding: "24px", border: "1px solid #e0e7ff", borderLeft: "4px solid #3b82f6", boxShadow: "var(--shadow-md)" }}>
+          <div style={{ display: "flex", gap: "16px", alignItems: "flex-start" }}>
+            <div style={{ background: "#eef2ff", padding: "12px", borderRadius: "50%", color: "#3b82f6" }}>
+              <PiggyBank size={24} />
+            </div>
+            <div style={{ flex: 1 }}>
+              <h3 style={{ margin: "0 0 8px 0", fontSize: "18px", color: "#1e3a8a", fontWeight: "700" }}>
+                💰 3년 만에 2,200만원? <span style={{ color: "#2563eb" }}>청년미래적금</span> 계산기
+              </h3>
+              <p style={{ margin: "0 0 16px 0", fontSize: "14px", color: "#475569", lineHeight: "1.5" }}>
+                최고 연 16.9% 수준의 파격적인 수익률! 내가 매달 내는 돈에 정부 지원금까지 합치면 만기 때 얼마를 받을 수 있을지 지금 바로 확인해보세요.
+              </p>
+              <a href="https://www.fundfinpro.com/" target="_blank" rel="noopener noreferrer" style={{ 
+                display: "inline-block", 
+                padding: "10px 20px", 
+                backgroundColor: "#2563eb", 
+                color: "white", 
+                textDecoration: "none", 
+                borderRadius: "6px", 
+                fontWeight: "600", 
+                fontSize: "14px",
+                transition: "background-color 0.2s"
+              }}>
+                만기 수령액 계산해보기 👉
+              </a>
             </div>
           </div>
         </div>
