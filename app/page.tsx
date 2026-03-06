@@ -1,7 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { useState, useMemo } from "react";
-import { Calculator, AlertTriangle, CircleCheck, RefreshCw, AlertCircle } from "lucide-react";
+import { Calculator, AlertTriangle, CircleCheck, RefreshCw, AlertCircle, HelpCircle } from "lucide-react";
 import { useExchangeRate } from "@/hooks/useExchangeRate";
 import {
   PRODUCT_CATEGORIES,
@@ -51,7 +52,7 @@ export default function Page() {
       };
     }
 
-    const dutyRate = selectedCategory?.dutyRate ?? 0.08;
+    const dutyRate = selectedCategory ? (selectedCategory.dutyRate as any)[origin] ?? 0.08 : 0.08;
     const totalKRW = Math.round(totalUSD * rate);
 
     // 관세 = 과세가격(총 USD * 환율) * 관세율
@@ -175,11 +176,14 @@ export default function Page() {
               value={category}
               onChange={(e) => setCategory(e.target.value)}
             >
-              {PRODUCT_CATEGORIES.map((cat) => (
-                <option key={cat.id} value={cat.id}>
-                  {cat.label} (관세율 {(cat.dutyRate * 100).toFixed(1)}%)
-                </option>
-              ))}
+              {PRODUCT_CATEGORIES.map((cat) => {
+                const rate = (cat.dutyRate as any)[origin] ?? 0.08;
+                return (
+                  <option key={cat.id} value={cat.id}>
+                    {cat.label} (관세율 {(rate * 100).toFixed(1)}%)
+                  </option>
+                );
+              })}
             </select>
           </div>
 
@@ -294,6 +298,36 @@ export default function Page() {
           )}
         </div>
 
+        {/* Banner for Combined Tax Calculator */}
+        <div style={{ marginTop: "24px", marginBottom: "32px", background: "linear-gradient(to right, var(--bg-card), var(--bg-page))", borderRadius: "12px", padding: "24px", border: "1px solid var(--border-color)", borderLeft: "4px solid var(--primary)", boxShadow: "var(--shadow-md)" }}>
+          <div style={{ display: "flex", gap: "16px", alignItems: "flex-start" }}>
+            <div style={{ background: "var(--bg-secondary)", padding: "12px", borderRadius: "50%", color: "var(--primary)" }}>
+              <Calculator size={24} />
+            </div>
+            <div style={{ flex: 1 }}>
+              <h3 style={{ margin: "0 0 8px 0", fontSize: "18px", color: "var(--text-primary)", fontWeight: "600" }}>
+                내 직구 택배, 혹시 <span style={{ color: "var(--danger)" }}>합산과세</span> 대상일까?
+              </h3>
+              <p style={{ margin: "0 0 16px 0", fontSize: "14px", color: "var(--text-secondary)", lineHeight: "1.5" }}>
+                같은 날 여러 택배가 한국에 도착하면 예상치 못한 세금 폭탄을 맞을 수 있습니다. 결제 전 미리 여러 물품의 가격을 합산 계산해 보고 안전한지 확인해 보세요!
+              </p>
+              <Link href="/combined-tax" style={{ 
+                display: "inline-block", 
+                padding: "10px 20px", 
+                backgroundColor: "var(--primary)", 
+                color: "white", 
+                textDecoration: "none", 
+                borderRadius: "6px", 
+                fontWeight: "600", 
+                fontSize: "14px",
+                transition: "background-color 0.2s"
+              }}>
+                합산과세 실시간 계산기 바로가기
+              </Link>
+            </div>
+          </div>
+        </div>
+
         {/* Results */}
         {result && !result.isDutyFree && (
           <div className={styles.resultCard}>
@@ -312,13 +346,13 @@ export default function Page() {
                 </p>
               </div>
               <div className={styles.resultRow}>
-                <p className={styles.resultRowLabel}>달러 환산액 (면세 기준)</p>
+                <p className={styles.resultRowLabel}>달러 환산액 (CIF 과세가격)</p>
                 <p className={styles.resultRowValue}>
                   ${result.totalUSD.toFixed(2)}
                 </p>
               </div>
               <div className={styles.resultRow}>
-                <p className={styles.resultRowLabel}>원화 환산</p>
+                <p className={styles.resultRowLabel}>원화 환산 (CIF 과세가격)</p>
                 <p className={styles.resultRowValue}>
                   {result.totalKRW?.toLocaleString("ko-KR")}원
                 </p>
@@ -405,7 +439,7 @@ export default function Page() {
           </section>
 
           <section>
-            <h3>3. 세금 계산의 핵심, &apos;과세가격&apos;이란?</h3>
+            <h3>3. 세금 계산의 핵심, &apos;과세가격(CIF)&apos;이란?</h3>
             <p>
               많은 분이 물건값만 생각하시지만, 관세청에서 기준삼는 가격은 <strong>물품 가액 + 현지 배송비 + 현지 세금(Sales Tax) + 선편요금</strong>의 합계입니다. 실제 배송비가 아닌 관세청 고시 무게별 선편요금이 더해지므로, 계산기를 통해 미리 예측해 보는 것이 정확합니다.
             </p>
@@ -434,6 +468,62 @@ export default function Page() {
               환율은 매일 변동하며 품목마다 세부 규정이 다릅니다. 저희 관세계산기는 실시간 고시환율을 적용하여 가장 정확한 예상 세액을 산출해 드립니다. 지금 바로 상단의 계산기에 구매 예정인 물품의 가격을 입력하고 세금 폭탄을 미연에 방지해 보세요!
             </p>
           </section>
+        </article>
+
+        {/* FAQ Section */}
+        <article style={{ marginTop: "40px", paddingTop: "40px", borderTop: "1px solid var(--border-color)" }}>
+          <h2 style={{ fontSize: "24px", fontWeight: "700", marginBottom: "24px", display: "flex", alignItems: "center", gap: "8px" }}>
+            <HelpCircle size={28} color="var(--primary)" />
+            직구족이 가장 많이 묻는 BEST 3
+          </h2>
+          
+          <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+            <div style={{ background: "var(--bg-card)", padding: "20px", borderRadius: "8px", border: "1px solid var(--border-color)" }}>
+              <h3 style={{ fontSize: "16px", margin: "0 0 8px 0", color: "var(--text-primary)" }}>
+                <span style={{ color: "var(--primary)", marginRight: "8px" }}>Q.</span>
+                달러가 아닌 엔화나 위안화로 결제하면 어떻게 계산하나요?
+              </h3>
+              <p style={{ margin: 0, fontSize: "14px", color: "var(--text-secondary)", lineHeight: "1.6" }}>
+                <strong>A.</strong> 세관에서는 물건이 한국에 도착하는 날(입항일)의 '과세환율'을 기준으로 모든 금액을 확인합니다. 본 계산기에서 출발 국가를 일본이나 중국으로 선택하시면 현지 통화로 편리하게 입력하면서 예상되는 달러 환산액을 미리 확인할 수 있습니다.
+              </p>
+            </div>
+
+            <div style={{ background: "var(--bg-card)", padding: "20px", borderRadius: "8px", border: "1px solid var(--border-color)" }}>
+              <h3 style={{ fontSize: "16px", margin: "0 0 8px 0", color: "var(--text-primary)" }}>
+                <span style={{ color: "var(--primary)", marginRight: "8px" }}>Q.</span>
+                배대지(배송대행지) 요금도 세금 부과 기준(과세가격)에 포함되나요?
+              </h3>
+              <p style={{ margin: 0, fontSize: "14px", color: "var(--text-secondary)", lineHeight: "1.6" }}>
+                <strong>A.</strong> 아닙니다. 면세 한도($150 또는 $200)를 계산할 때나 세금을 책정할 때, 여러분이 배대지에 지불하는 국제 배송비는 포함되지 않습니다. 오직 접속하신 해외 쇼핑몰에 지불한 총 금액(물건값 + 현지 배송비 + 현지 세금)이 기준이 됩니다.
+              </p>
+            </div>
+
+            <div style={{ background: "var(--bg-card)", padding: "20px", borderRadius: "8px", border: "1px solid var(--border-color)" }}>
+              <h3 style={{ fontSize: "16px", margin: "0 0 8px 0", color: "var(--text-primary)" }}>
+                <span style={{ color: "var(--primary)", marginRight: "8px" }}>Q.</span>
+                목록통관과 일반통관의 차이가 무엇인가요?
+              </h3>
+              <p style={{ margin: 0, fontSize: "14px", color: "var(--text-secondary)", lineHeight: "1.6" }}>
+                <strong>A.</strong> <strong>목록통관</strong>은 의류, 신발 등 위험성이 낮은 물품을 서류만으로 빠르게 통관시키는 제도입니다(미국 $200 면세). <strong>일반통관</strong>은 영양제, 의약품, 식품 등 세관의 직접 확인이 필요한 품목으로, 전 세계 어디서 오든 무조건 $150가 면세 한도입니다. 일반통관 품목이 하나라도 섞여 있다면 전체 택배가 일반통관($150 한도)으로 취급되니 주의하세요.
+              </p>
+            </div>
+          </div>
+
+          <div style={{ textAlign: "center", marginTop: "32px" }}>
+            <Link href="/qna" style={{
+              display: "inline-block",
+              padding: "12px 24px",
+              background: "var(--bg-secondary)",
+              color: "var(--text-primary)",
+              border: "1px solid var(--border-color)",
+              borderRadius: "8px",
+              fontWeight: "600",
+              textDecoration: "none",
+              transition: "all 0.2s"
+            }}>
+              더 많은 Q&A 보러가기 👉
+            </Link>
+          </div>
         </article>
       </div>
     </div>

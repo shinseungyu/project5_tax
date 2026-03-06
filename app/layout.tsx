@@ -67,7 +67,37 @@ export default function RootLayout({
     description: '해외 직구 시 예상 관세와 부가세를 간편하게 계산해주는 무료 계산기입니다.',
     applicationCategory: 'FinanceApplication',
     operatingSystem: 'All',
-    url: process.env.NEXT_PUBLIC_SITE_URL || 'https://newsioo.com',
+  };
+
+  const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: '달러가 아닌 엔화나 위안화로 결제하면 어떻게 계산하나요?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: '세관에서는 물건이 한국에 도착하는 날(입항일)의 과세환율을 기준으로 모든 금액을 확인합니다. 본 계산기에서 출발 국가를 일본이나 중국으로 선택하시면 현지 통화로 편리하게 입력하면서 예상되는 달러 환산액을 미리 확인할 수 있습니다.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: '배대지(배송대행지) 요금도 세금 부과 기준(과세가격)에 포함되나요?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: '아닙니다. 면세 한도($150 또는 $200)를 계산할 때나 세금을 책정할 때, 여러분이 배대지에 지불하는 국제 배송비는 포함되지 않습니다. 오직 접속하신 해외 쇼핑몰에 지불한 총 금액(물건값 + 현지 배송비 + 현지 세금)이 기준이 됩니다.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: '목록통관과 일반통관의 차이가 무엇인가요?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: '목록통관은 의류, 신발 등 위험성이 낮은 물품을 서류만으로 빠르게 통관시키는 제도입니다(미국 $200 면세). 일반통관은 영양제, 의약품, 식품 등 세관의 직접 확인이 필요한 품목으로, 전 세계 어디서 오든 무조건 $150가 면세 한도입니다. 일반통관 품목이 하나라도 섞여 있다면 전체 택배가 일반통관($150 한도)으로 취급되니 주의하세요.'
+        }
+      }
+    ]
   };
 
   return (
@@ -77,6 +107,12 @@ export default function RootLayout({
           id="json-ld"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          strategy="beforeInteractive"
+        />
+        <Script
+          id="faq-json-ld"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
           strategy="beforeInteractive"
         />
         <meta name="naver-site-verification" content="89526f8a6ecae4298dcb29200f67dbc70c6c1b48" />
@@ -145,9 +181,9 @@ export default function RootLayout({
               관세계산기
             </a>
             <div className="nav-links">
-              <a href="/" className="nav-link">계산기</a>
+              <a href="/" className="nav-link">관세계산기</a>
+              <a href="/combined-tax" className="nav-link">합산과세 계산기</a>
               <a href="/guide" className="nav-link">관세 가이드</a>
-              <a href="/warning" className="nav-link">합산과세 주의</a>
               <a href="/qna" className="nav-link">Q&A</a>
             </div>
           </div>
