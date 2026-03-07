@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState, useMemo } from "react";
 import { Calculator, AlertTriangle, CircleCheck, RefreshCw, AlertCircle, HelpCircle, PiggyBank } from "lucide-react";
+import postsData from "@/data/posts.json";
 import { useExchangeRate } from "@/hooks/useExchangeRate";
 import {
   PRODUCT_CATEGORIES,
@@ -443,9 +444,16 @@ export default function Page() {
 
         {/* SEO Guide Section */}
         <article className={styles.guideSection}>
-          <h2>해외 직구 관세 및 부가세 완벽 가이드: 계산 방법부터 면세 한도까지</h2>
+          <h2 style={{ fontSize: '26px', fontWeight: '800', lineHeight: '1.4' }}>해외 직구 관세 및 부가세 완벽 가이드: 계산 방법부터 면세 한도까지</h2>
           <p>
-            해외 직구를 이용할 때 가장 고민되는 부분은 단연 <strong>&apos;관세와 부가세&apos;</strong>입니다. 쇼핑몰 결제 금액 외에 추가로 납부해야 하는 세금을 정확히 알지 못하면, 자칫 배보다 배꼽이 더 큰 상황이 발생할 수 있습니다. 본 가이드에서는 초보 직구족도 쉽게 이해할 수 있는 관세 계산법과 주의사항을 정리해 드립니다.
+            해외 직구를 이용할 때 가장 고민되는 부분은 단연 <strong>&apos;관세와 부가세&apos;</strong>입니다.
+            아마존, 이베이, 알리익스프레스, 테무 등 글로벌 쇼핑몰에서 마음에 드는 상품을 발견했을 때,
+            쇼핑몰 결제 금액 외에 <strong>추가로 납부해야 하는 세금</strong>을 미리 알지 못하면
+            예상치 못한 세금 고지서를 받고 당황하는 상황이 생깁니다.
+            특히 면세 한도($150~$200)를 조금만 초과해도 관세와 부가세가 한꺼번에 부과되기 때문에,
+            <strong> 사전에 정확히 계산해보는 습관</strong>이 절약의 핵심입니다.
+            본 가이드에서는 관세와 부가세의 차이, 국가별 면세 한도, 합산과세 주의사항까지
+            초보 직구족도 쉽게 이해할 수 있도록 핵심만 정리해 드립니다.
           </p>
 
           <section>
@@ -555,6 +563,38 @@ export default function Page() {
             </Link>
           </div>
         </article>
+
+        {/* 게시판 최신 글 섹션 */}
+        <article style={{ marginTop: '40px', paddingTop: '40px', borderTop: '1px solid var(--border-color)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+            <h2 style={{ fontSize: '20px', fontWeight: '800', color: 'var(--text-primary)', margin: 0 }}>📋 직구 정보 게시판</h2>
+            <Link href="/board" style={{ fontSize: '13px', color: 'var(--primary)', textDecoration: 'none', fontWeight: '600' }}>전체 글 보기 →</Link>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            {(postsData as any[]).slice(0, 3).map((post: any) => (
+              <Link key={post.id} href={`/board?id=${post.id}`} style={{ textDecoration: 'none', display: 'block', padding: '16px 20px', background: 'var(--bg-card)', border: '1px solid var(--border-color)', borderRadius: '10px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                  <span style={{ fontSize: '11px', backgroundColor: 'var(--primary-light)', color: 'var(--primary)', padding: '2px 8px', borderRadius: '999px', fontWeight: '600' }}>{post.category}</span>
+                  <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{post.date}</span>
+                </div>
+                <p style={{ margin: '0 0 4px', fontSize: '14px', fontWeight: '700', color: 'var(--text-primary)' }}>{post.title}</p>
+                <p style={{ margin: 0, fontSize: '13px', color: 'var(--text-secondary)', lineHeight: '1.5' }}>{post.summary}</p>
+              </Link>
+            ))}
+          </div>
+        </article>
+
+        {/* 정책 링크 푸터 */}
+        <footer style={{ marginTop: '24px', paddingTop: '16px', borderTop: '1px solid var(--border-color)', textAlign: 'center' }}>
+          <nav style={{ display: 'flex', justifyContent: 'center', gap: '20px', flexWrap: 'wrap' }}>
+            <a href="/privacy-policy" style={{ fontSize: '12px', color: 'var(--text-muted)', textDecoration: 'none' }}>개인정보 처리방침</a>
+            <a href="/terms-of-service" style={{ fontSize: '12px', color: 'var(--text-muted)', textDecoration: 'none' }}>이용약관</a>
+            <a href="/cookie-policy" style={{ fontSize: '12px', color: 'var(--text-muted)', textDecoration: 'none' }}>쿠키 정책</a>
+          </nav>
+          <p style={{ marginTop: '8px', fontSize: '11px', color: 'var(--text-muted)' }}>
+            © 2026 newsioo.com · 문의: tlsfkaus0711@gmail.com
+          </p>
+        </footer>
       </div>
     </div>
   );
