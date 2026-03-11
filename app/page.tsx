@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useMemo } from "react";
-import { Calculator, AlertTriangle, CircleCheck, RefreshCw, AlertCircle, HelpCircle, PiggyBank } from "lucide-react";
+import { Calculator, AlertTriangle, CircleCheck, RefreshCw, AlertCircle, HelpCircle, PiggyBank, Car } from "lucide-react";
 import postsData from "@/data/posts.json";
 import { useExchangeRate } from "@/hooks/useExchangeRate";
 import {
@@ -359,6 +359,36 @@ export default function Page() {
           </div>
         </div>
 
+        {/* Banner for Car Installment Calculator */}
+        <div style={{ marginBottom: "32px", background: "linear-gradient(to right, #fdf4ff, #ffffff)", borderRadius: "12px", padding: "24px", border: "1px solid #fce7f3", borderLeft: "4px solid #ec4899", boxShadow: "var(--shadow-md)" }}>
+          <div style={{ display: "flex", gap: "16px", alignItems: "flex-start" }}>
+            <div style={{ background: "#fdf2f8", padding: "12px", borderRadius: "50%", color: "#ec4899" }}>
+              <Car size={24} />
+            </div>
+            <div style={{ flex: 1 }}>
+              <h3 style={{ margin: "0 0 8px 0", fontSize: "18px", color: "#831843", fontWeight: "700" }}>
+                🚗 새 차 살 때 필수! <span style={{ color: "#db2777" }}>자동차 할부계산기</span>
+              </h3>
+              <p style={{ margin: "0 0 16px 0", fontSize: "14px", color: "#475569", lineHeight: "1.5" }}>
+                복잡한 신차 할부 이자부터 선수금 비율에 따른 예상 월 납입금까지 한 번에! 호갱 당하지 않고 스마트하게 차량을 구입하기 전에 조건을 꼭 계산해 보세요.
+              </p>
+              <a href="https://www.carpaypro.com/" target="_blank" rel="noopener noreferrer" style={{ 
+                display: "inline-block", 
+                padding: "10px 20px", 
+                backgroundColor: "#db2777", 
+                color: "white", 
+                textDecoration: "none", 
+                borderRadius: "6px", 
+                fontWeight: "600", 
+                fontSize: "14px",
+                transition: "background-color 0.2s"
+              }}>
+                내 차 할부금 계산해보기 👉
+              </a>
+            </div>
+          </div>
+        </div>
+
         {/* Results */}
         {result && !result.isDutyFree && (
           <div className={styles.resultCard}>
@@ -571,7 +601,7 @@ export default function Page() {
             <Link href="/board" style={{ fontSize: '13px', color: 'var(--primary)', textDecoration: 'none', fontWeight: '600' }}>전체 글 보기 →</Link>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            {(postsData as any[]).slice(0, 3).map((post: any) => (
+            {(postsData as any[]).sort((a, b) => b.date.localeCompare(a.date)).slice(0, 3).map((post: any) => (
               <Link key={post.id} href={`/board?id=${post.id}`} style={{ textDecoration: 'none', display: 'block', padding: '16px 20px', background: 'var(--bg-card)', border: '1px solid var(--border-color)', borderRadius: '10px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
                   <span style={{ fontSize: '11px', backgroundColor: 'var(--primary-light)', color: 'var(--primary)', padding: '2px 8px', borderRadius: '999px', fontWeight: '600' }}>{post.category}</span>
