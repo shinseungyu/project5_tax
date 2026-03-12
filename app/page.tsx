@@ -542,7 +542,7 @@ export default function Page() {
         <article style={{ marginTop: "40px", paddingTop: "40px", borderTop: "1px solid var(--border-color)" }}>
           <h2 style={{ fontSize: "24px", fontWeight: "700", marginBottom: "24px", display: "flex", alignItems: "center", gap: "8px" }}>
             <HelpCircle size={28} color="var(--primary)" />
-            직구족이 가장 많이 묻는 BEST 3
+            직구족이 가장 많이 묻는 BEST 5
           </h2>
           
           <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
@@ -573,6 +573,26 @@ export default function Page() {
               </h3>
               <p style={{ margin: 0, fontSize: "14px", color: "var(--text-secondary)", lineHeight: "1.6" }}>
                 <strong>A.</strong> <strong>목록통관</strong>은 의류, 신발 등 위험성이 낮은 물품을 서류만으로 빠르게 통관시키는 제도입니다(미국 $200 면세). <strong>일반통관</strong>은 영양제, 의약품, 식품 등 세관의 직접 확인이 필요한 품목으로, 전 세계 어디서 오든 무조건 $150가 면세 한도입니다. 일반통관 품목이 하나라도 섞여 있다면 전체 택배가 일반통관($150 한도)으로 취급되니 주의하세요.
+              </p>
+            </div>
+
+            <div style={{ background: "var(--bg-card)", padding: "20px", borderRadius: "8px", border: "1px solid var(--border-color)" }}>
+              <h3 style={{ fontSize: "16px", margin: "0 0 8px 0", color: "var(--text-primary)" }}>
+                <span style={{ color: "var(--primary)", marginRight: "8px" }}>Q.</span>
+                향수를 직구할 때 세금은 어떻게 되나요?
+              </h3>
+              <p style={{ margin: 0, fontSize: "14px", color: "var(--text-secondary)", lineHeight: "1.6" }}>
+                <strong>A.</strong> 향수는 용량에 따라 면세 여부가 완전히 달라집니다. 총 결제 금액이 면세 한도($150~$200) 이내이면서, <strong>향수의 총 용량이 60ml 이하</strong>라면 관세, 부가세, 개별소비세가 모두 면제됩니다. 하지만 60ml를 조금이라도 초과하면 전체 금액에 대해 높은 세율이 부과되므로 각별히 주의해야 합니다.
+              </p>
+            </div>
+
+            <div style={{ background: "var(--bg-card)", padding: "20px", borderRadius: "8px", border: "1px solid var(--border-color)" }}>
+              <h3 style={{ fontSize: "16px", margin: "0 0 8px 0", color: "var(--text-primary)" }}>
+                <span style={{ color: "var(--primary)", marginRight: "8px" }}>Q.</span>
+                세금을 피하려고 박스를 두 개로 나눠서(분할 배송) 보내면 괜찮을까요?
+              </h3>
+              <p style={{ margin: 0, fontSize: "14px", color: "var(--text-secondary)", lineHeight: "1.6" }}>
+                <strong>A.</strong> 절대 추천하지 않습니다. 세관에서는 같은 목적지, 같은 수취인으로 여러 박스가 며칠 간격으로 들어와도 이를 <strong>거의 동일한 주문으로 간주하여 '합산과세' 처분</strong>을 내릴 확률이 매우 높습니다. 이 경우 세금 납부는 물론 통관 지연까지 발생할 수 있으니, 한 번에 정상적으로 결제하는 것이 가장 안전하고 빠릅니다.
               </p>
             </div>
           </div>
