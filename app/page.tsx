@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useMemo } from "react";
-import { Calculator, AlertTriangle, CircleCheck, RefreshCw, AlertCircle, HelpCircle } from "lucide-react";
+import { Calculator, AlertTriangle, CircleCheck, AlertCircle, HelpCircle } from "lucide-react";
 import postsData from "@/data/posts.json";
 import { useExchangeRate } from "@/hooks/useExchangeRate";
 import {
@@ -359,6 +359,41 @@ export default function Page() {
                 }}
               >
                 청년 미래적금 계산기 바로가기
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* 자동차 할부계산기 추천 */}
+        <div style={{ marginTop: "24px", marginBottom: "24px", background: "linear-gradient(to right, var(--bg-card), var(--bg-page))", borderRadius: "12px", padding: "24px", border: "1px solid var(--border-color)", borderLeft: "4px solid var(--primary)", boxShadow: "var(--shadow-md)" }}>
+          <div style={{ display: "flex", gap: "16px", alignItems: "flex-start" }}>
+            <div style={{ background: "var(--bg-secondary)", padding: "12px", borderRadius: "50%", color: "var(--primary)", fontSize: "24px", lineHeight: 1 }}>
+              🚗
+            </div>
+            <div style={{ flex: 1 }}>
+              <h3 style={{ margin: "0 0 8px 0", fontSize: "18px", color: "var(--text-primary)", fontWeight: "600" }}>
+                자동차 할부, <span style={{ color: "var(--primary)" }}>월 납입금이 얼마나 될까?</span>
+              </h3>
+              <p style={{ margin: "0 0 16px 0", fontSize: "14px", color: "var(--text-secondary)", lineHeight: "1.5" }}>
+                차량 가격, 계약금, 할부 기간을 입력하면 월 납입금과 총 이자를 바로 계산해드립니다. 구매 전 꼭 확인해보세요!
+              </p>
+              <a
+                href="https://www.carpaypro.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: "inline-block",
+                  padding: "10px 20px",
+                  backgroundColor: "var(--primary)",
+                  color: "white",
+                  textDecoration: "none",
+                  borderRadius: "6px",
+                  fontWeight: "600",
+                  fontSize: "14px",
+                  transition: "background-color 0.2s"
+                }}
+              >
+                자동차 할부계산기 바로가기
               </a>
             </div>
           </div>
