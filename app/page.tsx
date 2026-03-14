@@ -329,6 +329,41 @@ export default function Page() {
           </div>
         </div>
 
+        {/* 관련 계산기 추천 */}
+        <div style={{ marginTop: "24px", marginBottom: "24px", background: "linear-gradient(to right, var(--bg-card), var(--bg-page))", borderRadius: "12px", padding: "24px", border: "1px solid var(--border-color)", borderLeft: "4px solid var(--primary)", boxShadow: "var(--shadow-md)" }}>
+          <div style={{ display: "flex", gap: "16px", alignItems: "flex-start" }}>
+            <div style={{ background: "var(--bg-secondary)", padding: "12px", borderRadius: "50%", color: "var(--primary)", fontSize: "24px", lineHeight: 1 }}>
+              🏦
+            </div>
+            <div style={{ flex: 1 }}>
+              <h3 style={{ margin: "0 0 8px 0", fontSize: "18px", color: "var(--text-primary)", fontWeight: "600" }}>
+                청년 미래적금, <span style={{ color: "var(--primary)" }}>만기에 얼마나 받을 수 있을까?</span>
+              </h3>
+              <p style={{ margin: "0 0 16px 0", fontSize: "14px", color: "var(--text-secondary)", lineHeight: "1.5" }}>
+                정부가 지원하는 청년 미래적금의 만기 수령액을 미리 계산해보세요. 납입액·이자·정부 지원금까지 한눈에 확인할 수 있습니다.
+              </p>
+              <a
+                href="https://www.fundfinpro.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: "inline-block",
+                  padding: "10px 20px",
+                  backgroundColor: "var(--primary)",
+                  color: "white",
+                  textDecoration: "none",
+                  borderRadius: "6px",
+                  fontWeight: "600",
+                  fontSize: "14px",
+                  transition: "background-color 0.2s"
+                }}
+              >
+                청년 미래적금 계산기 바로가기
+              </a>
+            </div>
+          </div>
+        </div>
+
         {/* Results */}
         {result && !result.isDutyFree && (
           <div className={styles.resultCard}>
