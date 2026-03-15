@@ -147,6 +147,19 @@ export default function RootLayout({
         <meta name="naver-site-verification" content="89526f8a6ecae4298dcb29200f67dbc70c6c1b48" />
         <Script
           async
+          src="https://www.googletagmanager.com/gtag/js?id=G-HQ7J0K4PKJ"
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-HQ7J0K4PKJ');
+          `}
+        </Script>
+        <Script
+          async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5378247298190063"
           crossOrigin="anonymous"
           strategy="afterInteractive"
