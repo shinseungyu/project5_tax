@@ -399,41 +399,6 @@ export default function Page() {
           </div>
         </div>
 
-        {/* 전기차 보조금 추천 */}
-        <div style={{ marginTop: "24px", marginBottom: "24px", background: "linear-gradient(to right, var(--bg-card), var(--bg-page))", borderRadius: "12px", padding: "24px", border: "1px solid var(--border-color)", borderLeft: "4px solid #10b981", boxShadow: "var(--shadow-md)" }}>
-          <div style={{ display: "flex", gap: "16px", alignItems: "flex-start" }}>
-            <div style={{ background: "var(--bg-secondary)", padding: "12px", borderRadius: "50%", fontSize: "24px", lineHeight: 1 }}>
-              ⚡
-            </div>
-            <div style={{ flex: 1 }}>
-              <h3 style={{ margin: "0 0 8px 0", fontSize: "18px", color: "var(--text-primary)", fontWeight: "600" }}>
-                전기차 구매, <span style={{ color: "#10b981" }}>보조금 먼저 확인하세요!</span>
-              </h3>
-              <p style={{ margin: "0 0 16px 0", fontSize: "14px", color: "var(--text-secondary)", lineHeight: "1.5" }}>
-                2026년 국고·지자체 보조금을 지역별로 한눈에 조회하세요. 실구매가를 바로 계산해드립니다.
-              </p>
-              <a
-                href="https://www.carelec.kr/"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: "inline-block",
-                  padding: "10px 20px",
-                  backgroundColor: "#10b981",
-                  color: "white",
-                  textDecoration: "none",
-                  borderRadius: "6px",
-                  fontWeight: "600",
-                  fontSize: "14px",
-                  transition: "background-color 0.2s"
-                }}
-              >
-                전기차 보조금 계산기 바로가기
-              </a>
-            </div>
-          </div>
-        </div>
-
         {/* Results */}
         {result && !result.isDutyFree && (
           <div className={styles.resultCard}>

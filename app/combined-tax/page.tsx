@@ -71,8 +71,26 @@ export default function TipsPage() {
     setItems(prev => prev.map(item => item.id === id ? { ...item, price } : item));
   };
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: '합산과세 계산 시 배송비도 포함해야 하나요?',
+        acceptedAnswer: { '@type': 'Answer', text: '네, 과세가격은 상품가 + 현지 배송비(판매자→배대지 비용)를 합산해서 계산합니다. 배대지 수수료나 한국 국내 배송비는 과세가격에 포함하지 않습니다. 합산 시에도 동일한 기준이 적용됩니다.' },
+      },
+      {
+        '@type': 'Question',
+        name: '같은 날 주문한 두 물건이 배송 지연으로 다른 날 도착하면 합산과세 안 되나요?',
+        acceptedAnswer: { '@type': 'Answer', text: '맞습니다. 합산과세는 주문일이 아닌 입항일(한국 세관 도착일) 기준입니다. 같은 날 주문했어도 도착일이 다르면 각각 별도로 계산되므로 합산과세가 적용되지 않습니다.' },
+      },
+    ],
+  };
+
   return (
     <div className={styles.container}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div className={styles.wrapper}>
         <header className={styles.header}>
           <h1 className={styles.title}>실시간 해외 직구 합산과세 계산기</h1>
@@ -356,6 +374,22 @@ export default function TipsPage() {
              </div>
           </section>
 
+        </article>
+
+        {/* FAQ */}
+        <article style={{ marginTop: '40px', paddingTop: '40px', borderTop: '1px solid var(--border-color)' }}>
+          <h2 style={{ fontSize: '22px', fontWeight: '700', marginBottom: '24px' }}>합산과세 자주 묻는 질문</h2>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            {[
+              { q: '합산과세 계산 시 배송비도 포함해야 하나요?', a: '네, 과세가격은 상품가 + 현지 배송비(판매자→배대지 비용)를 합산해서 계산합니다. 배대지 수수료나 한국 국내 배송비는 과세가격에 포함하지 않습니다. 합산 시에도 동일한 기준이 적용됩니다.' },
+              { q: '같은 날 주문한 두 물건이 배송 지연으로 다른 날 도착하면 합산과세 안 되나요?', a: '맞습니다. 합산과세는 주문일이 아닌 입항일(한국 세관 도착일) 기준입니다. 같은 날 주문했어도 도착일이 다르면 각각 별도로 계산되므로 합산과세가 적용되지 않습니다.' },
+            ].map(({ q, a }) => (
+              <div key={q} style={{ background: 'var(--bg-card)', padding: '20px', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
+                <h3 style={{ fontSize: '15px', margin: '0 0 8px', color: 'var(--text-primary)' }}><span style={{ color: 'var(--primary)', marginRight: '6px' }}>Q.</span>{q}</h3>
+                <p style={{ margin: 0, fontSize: '14px', color: 'var(--text-secondary)', lineHeight: '1.6' }}><strong>A.</strong> {a}</p>
+              </div>
+            ))}
+          </div>
         </article>
 
         {/* 정책 링크 푸터 */}
