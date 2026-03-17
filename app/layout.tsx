@@ -6,8 +6,8 @@ import './globals.css'
 const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
 
 export const metadata: Metadata = {
-  title: '관세계산기 | 2026 해외직구 관세·부가세 자동 계산',
-  description: '2026년 최신 환율 기준 해외직구 관세와 부가세를 1초 만에 계산하세요. 미국·일본·중국(알리, 테무) 직구 면세 한도, 품목별 관세율, 합산과세 여부까지 한번에 확인할 수 있습니다.',
+  title: '관세계산기 - 수입 관세 자동 계산',
+  description: '해외 직구 시 예상 관세와 부가세를 간편하게 계산하세요',
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://newsioo.com'),
   alternates: {
     canonical: '/',
@@ -15,10 +15,10 @@ export const metadata: Metadata = {
   // ✅ 수정 1: keywords 추가
   keywords: ['관세계산기', '해외직구 관세', '수입 관세 계산', '부가세 계산', '직구 관세율', '면세 한도', '합산과세', '알리 관세', '테무 관세', '아마존 직구 관세'],
   openGraph: {
-    title: '관세계산기 | 2026 해외직구 관세·부가세 자동 계산',
-    description: '2026년 최신 환율 기준 해외직구 관세와 부가세를 1초 만에 계산하세요. 미국·일본·중국(알리, 테무) 직구 면세 한도, 품목별 관세율, 합산과세 여부까지 한번에 확인할 수 있습니다.',
+    title: '관세계산기 - 수입 관세 자동 계산',
+    description: '해외 직구 시 예상 관세와 부가세를 간편하게 계산하세요',
     url: '/',
-    siteName: '관세계산기',
+    siteName: '관세계산기 - 수입 관세 자동 계산',
     locale: 'ko_KR',
     type: 'website',
     images: [
@@ -32,8 +32,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: '관세계산기 | 2026 해외직구 관세·부가세 자동 계산',
-    description: '2026년 최신 환율 기준 해외직구 관세와 부가세를 1초 만에 계산하세요. 미국·일본·중국(알리, 테무) 직구 면세 한도, 품목별 관세율, 합산과세 여부까지 한번에 확인할 수 있습니다.',
+    title: '관세계산기 - 수입 관세 자동 계산',
+    description: '해외 직구 시 예상 관세와 부가세를 간편하게 계산하세요',
     images: ['https://newsioo.com/thumb.webp'],
   },
   authors: [{ name: '관세계산기 - 수입 관세 자동 계산' }],
@@ -223,11 +223,9 @@ export default function RootLayout({
             </a>
             <div className="nav-links">
               <a href="/" className="nav-link">관세계산기</a>
-              <a href="/china-direct" className="nav-link">알리·테무</a>
-              <a href="/us" className="nav-link">미국 직구</a>
               <a href="/combined-tax" className="nav-link">합산과세 계산기</a>
-              <a href="/jikgu-guide" className="nav-link">직구 기초</a>
-              <a href="/guide" className="nav-link">가이드</a>
+              <a href="/guide" className="nav-link">관세 가이드</a>
+              <a href="/qna" className="nav-link">Q&A</a>
             </div>
           </div>
         </nav>
